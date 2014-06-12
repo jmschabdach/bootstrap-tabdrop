@@ -3,7 +3,8 @@
  * http://www.eyecon.ro/bootstrap-tabdrop
  * =========================================================
  * Copyright 2012 Stefan Petre
- *
+ * Copyright 2014 Jose Ant. Aranda
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -53,7 +54,8 @@
 
 	var TabDrop = function(element, options) {
 		this.element = $(element);
-		this.dropdown = $('<li class="dropdown hide pull-right tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'+options.text+'<span class="display-tab"></span> <b class="caret"></b></a><ul class="dropdown-menu"></ul></li>')
+		this.options = options;
+		this.dropdown = $('<li class="dropdown hide pull-right tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'+options.text+' <b class="caret"></b></a><ul class="dropdown-menu"></ul></li>')
 							.prependTo(this.element);
 		if (this.element.parent().is('.tabs-below')) {
 			this.dropdown.addClass('dropup');
@@ -66,34 +68,53 @@
 		constructor: TabDrop,
 
 		layout: function() {
-            var that = this;
 			var collection = [];
+			var dropdown = this.dropdown;
+			var options = this.options;
+
 			this.dropdown.removeClass('hide');
+
+			function setDropdownText(text) {
+				dropdown.find('a.dropdown-toggle').html('<span class="display-tab"> ' + text + ' </span><b class="caret"></b>');
+			}
+
+			function setDropdownDefaultText() {
+				dropdown.find('a.dropdown-toggle').html(options.text+' <b class="caret"></b>');
+			}
+
 			this.element
 				.append(this.dropdown.find('li'))
 				.find('>li')
 				.not('.tabdrop')
 				.each(function(){
-					if(this.offsetTop > 0) {
+					if(this.offsetTop > options.offsetTop) {
 						collection.push(this);
 					}
 				});
-            this.dropdown.on("click", "li", function(event){
-                var display = $(this).text();
-                $(this).parent().parent().find("a.dropdown-toggle").empty();
-                $(this).parent().parent().find("a.dropdown-toggle").html('<span class="display-tab"> ' + display + ' </span><b class="caret"></b>');
-            });
+
+			this.element.find('>li').not('.tabdrop').off("click");
+			this.element.find('>li').not('.tabdrop').on("click", function() {
+				setDropdownDefaultText();
+			});
+
 			if (collection.length > 0) {
 				collection = $(collection);
 				this.dropdown
 					.find('ul')
 					.empty()
 					.append(collection);
+				
+				this.dropdown.on("click", "li", function(event){
+					var display = $(this).text();
+					setDropdownText(display);
+				});
+
 				if (this.dropdown.find('.active').length == 1) {
 					this.dropdown.addClass('active');
-                    
+					setDropdownText(this.dropdown.find('.active > a').text());
 				} else {
 					this.dropdown.removeClass('active');
+					setDropdownDefaultText();
 				}
 			} else {
 				this.dropdown.addClass('hide');
@@ -116,7 +137,8 @@
 	};
 
 	$.fn.tabdrop.defaults = {
-		text: '<i class="icon-align-justify"></i>'
+		text: '<i class="fa fa-align-justify"></i>',
+		offsetTop: 0
 	};
 
 	$.fn.tabdrop.Constructor = TabDrop;
