@@ -54,7 +54,7 @@
 
 	var TabDrop = function(element, options) {
 		this.element = $(element);
-        this.options = options;
+		this.options = options;
 		this.dropdown = $('<li class="dropdown hide pull-right tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'+options.text+' <b class="caret"></b></a><ul class="dropdown-menu"></ul></li>')
 							.prependTo(this.element);
 		if (this.element.parent().is('.tabs-below')) {
@@ -69,16 +69,16 @@
 
 		layout: function() {
 			var collection = [];
-            var dropdown = this.dropdown;
-            var options = this.options;
-            
+			var dropdown = this.dropdown;
+			var options = this.options;
+
 			this.dropdown.removeClass('hide');
 
 			function setDropdownText(text) {
 				dropdown.find('a.dropdown-toggle').html('<span class="display-tab"> ' + text + ' </span><b class="caret"></b>');
 			}
-            
-            function setDropdownDefaultText() {
+
+			function setDropdownDefaultText() {
 				dropdown.find('a.dropdown-toggle').html(options.text+' <b class="caret"></b>');
 			}
 
@@ -91,8 +91,8 @@
 						collection.push(this);
 					}
 				});
-            
-            this.element.find('>li').not('.tabdrop').off("click");
+
+			this.element.find('>li').not('.tabdrop').off("click");
 			this.element.find('>li').not('.tabdrop').on("click", function() {
 				setDropdownDefaultText();
 			});
@@ -104,17 +104,17 @@
 					.empty()
 					.append(collection);
 				
-                this.dropdown.on("click", "li", function(event){
-                    var display = $(this).text();
-                    setDropdownText(display);
-                });
-                
+				this.dropdown.on("click", "li", function(event){
+					var display = $(this).text();
+					setDropdownText(display);
+				});
+
 				if (this.dropdown.find('.active').length == 1) {
 					this.dropdown.addClass('active');
 					setDropdownText(this.dropdown.find('.active > a').text());
 				} else {
 					this.dropdown.removeClass('active');
-                    setDropdownDefaultText();
+					setDropdownDefaultText();
 				}
 			} else {
 				this.dropdown.addClass('hide');
