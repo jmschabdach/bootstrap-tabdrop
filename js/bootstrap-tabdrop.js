@@ -111,13 +111,13 @@
 					.append(collection);
 				
 				this.dropdown.on("click", "li", function(event){
-					var display = $(this).text();
+					var display = $(this).find('a').html();
 					setDropdownText(display);
 				});
 
 				if (this.dropdown.find('.active').length == 1) {
 					this.dropdown.addClass('active');
-					setDropdownText(this.dropdown.find('.active > a').text());
+					setDropdownText(this.dropdown.find('.active > a').html());
 				} else {
 					this.dropdown.removeClass('active');
 					setDropdownDefaultText();
