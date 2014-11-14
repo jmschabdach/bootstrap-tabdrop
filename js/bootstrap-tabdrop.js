@@ -42,11 +42,9 @@
 				}
 			},
 			unregister: function(fn) {
-				for(var i=0, cnt=registered.length; i<cnt; i++) {
-					if (registered[i] == fn) {
-						delete registered[i];
-						break;
-					}
+				var registeredFnIndex = registered.indexOf(fn);
+				if (registeredFnIndex > -1) {
+					registered.splice(registeredFnIndex, 1);
 				}
 			}
 		}
