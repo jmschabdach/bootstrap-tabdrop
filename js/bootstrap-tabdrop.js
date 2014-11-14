@@ -55,7 +55,7 @@
 	var TabDrop = function(element, options) {
 		this.element = $(element);
 		this.options = options;
-		this.dropdown = $('<li class="dropdown hide pull-right tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="#">'+options.text+' <b class="caret"></b></a><ul class="dropdown-menu"></ul></li>')
+		this.dropdown = $('<li class="dropdown hide pull-right tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="display-tab"></span><b class="caret"></b></a><ul class="dropdown-menu"></ul></li>')
 							.prependTo(this.element);
 		if (this.element.parent().is('.tabs-below')) {
 			this.dropdown.addClass('dropup');
@@ -81,11 +81,17 @@
 			this.dropdown.removeClass('hide');
 
 			function setDropdownText(text) {
-				dropdown.find('a.dropdown-toggle').html('<span class="display-tab"> ' + text + ' </span><b class="caret"></b>');
+				dropdown.find('a span.display-tab').html(text);
 			}
 
-			function setDropdownDefaultText() {
-				dropdown.find('a.dropdown-toggle').html(options.text+' <b class="caret"></b>');
+			function setDropdownDefaultText(collection) {
+				var text;
+			    if (jQuery.isFunction(options.text)) {
+			    	text = options.text(collection);
+			    } else {
+			    	text = options.text;
+			    }
+			    setDropdownText(text);
 			}
 
 			this.element
@@ -100,7 +106,7 @@
 
 			this.element.find('>li').not('.tabdrop').off("click");
 			this.element.find('>li').not('.tabdrop').on("click", function() {
-				setDropdownDefaultText();
+				setDropdownDefaultText(collection);
 			});
 
 			if (collection.length > 0) {
@@ -120,7 +126,7 @@
 					setDropdownText(this.dropdown.find('.active > a').html());
 				} else {
 					this.dropdown.removeClass('active');
-					setDropdownDefaultText();
+					setDropdownDefaultText(collection);
 				}
 			} else {
 				this.dropdown.addClass('hide');
