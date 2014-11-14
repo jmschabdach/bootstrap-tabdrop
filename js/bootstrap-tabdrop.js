@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================= */
- 
+
 !function( $ ) {
 
 	var WinReszier = (function(){
@@ -50,6 +50,12 @@
 		}
 	}());
 
+	function updateSelection(e) {
+		this.element.find('li').removeClass('active');
+		$(e.currentTarget).addClass('active');
+		this.layout();
+	}
+
 	var TabDrop = function(element, options) {
 		this.element = $(element);
 		this.options = options;
@@ -60,9 +66,14 @@
 		}
 		
 		var boundLayout = $.proxy(this.layout, this);
+		var boundUpdateSelection = $.proxy(updateSelection, this);
+
 		WinReszier.register(boundLayout);
+		this.element.on('click', 'li:not(.tabdrop)', boundUpdateSelection);
+
 		this.teardown = function() {
 			WinReszier.unregister(boundLayout);
+			this.element.off('click', 'li:not(.tabdrop)', boundUpdateSelection);
 		};
 
 		this.layout();
@@ -94,30 +105,21 @@
 
 			this.element
 				.append(this.dropdown.find('li'))
-				.find('>li')
-				.not('.tabdrop')
-				.each(function(){
-					if(this.offsetTop > options.offsetTop) {
-						collection.push(this);
-					}
-				});
-
-			this.element.find('>li').not('.tabdrop').off("click");
-			this.element.find('>li').not('.tabdrop').on("click", function() {
-				setDropdownDefaultText(collection);
-			});
+					.append(this.dropdown.find('li'))
+					.find('>li')
+					.not('.tabdrop')
+					.each(function(){
+						if(this.offsetTop > options.offsetTop) {
+							collection.push(this);
+						}
+					});
 
 			if (collection.length > 0) {
 				collection = $(collection);
 				this.dropdown
-					.find('ul')
-					.empty()
-					.append(collection);
-				
-				this.dropdown.on("click", "li", function(event){
-					var display = $(this).find('a').html();
-					setDropdownText(display);
-				});
+						.find('ul')
+						.empty()
+						.append(collection);
 
 				if (this.dropdown.find('.active').length == 1) {
 					this.dropdown.addClass('active');
