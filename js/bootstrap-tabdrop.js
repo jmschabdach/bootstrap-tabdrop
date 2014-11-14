@@ -60,7 +60,13 @@
 		if (this.element.parent().is('.tabs-below')) {
 			this.dropdown.addClass('dropup');
 		}
-		WinReszier.register($.proxy(this.layout, this));
+		
+		var boundLayout = $.proxy(this.layout, this);
+		WinReszier.register(boundLayout);
+		this.teardown = function() {
+			WinReszier.unregister(boundLayout);
+		};
+
 		this.layout();
 	};
 
