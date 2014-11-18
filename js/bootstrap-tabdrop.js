@@ -72,8 +72,6 @@
 			var dropdown = this.dropdown;
 			var options = this.options;
 
-			this.dropdown.removeClass('hide');
-
 			function setDropdownText(text) {
 				dropdown.find('a.dropdown-toggle').html('<span class="display-tab"> ' + text + ' </span><b class="caret"></b>');
 			}
@@ -98,6 +96,8 @@
 			});
 
 			if (collection.length > 0) {
+				this.dropdown.removeClass('hide');
+
 				collection = $(collection);
 				this.dropdown
 					.find('ul')
