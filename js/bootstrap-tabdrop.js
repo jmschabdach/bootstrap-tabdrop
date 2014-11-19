@@ -87,8 +87,6 @@
 			var dropdown = this.dropdown;
 			var options = this.options;
 
-			this.dropdown.removeClass('hide');
-
 			function setDropdownText(text) {
 				dropdown.find('a span.display-tab').html(text);
 			}
@@ -115,6 +113,8 @@
 					});
 
 			if (collection.length > 0) {
+				this.dropdown.removeClass('hide');
+
 				collection = $(collection);
 				this.dropdown
 						.find('ul')
