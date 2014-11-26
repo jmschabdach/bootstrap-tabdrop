@@ -100,7 +100,7 @@
 				setDropdownText(text);
 			}
 
-			function checkOffsetAndPush(recursive) {
+			function checkOffsetAndPush(recursion) {
 				self.element.find('> li:not(.tabdrop)')
 					.each(function () {
 						if (this.offsetTop > self.options.offsetTop) {
@@ -109,7 +109,7 @@
 					});
 
 				if (collection.length > 0) {
-					if (!recursive) {
+					if (!recursion) {
 						self.dropdown.removeClass('hide');
 						self.dropdown.find('ul').empty();
 					}
@@ -126,7 +126,7 @@
 					collection = [];
 					checkOffsetAndPush(true);
 				} else {
-					if (!recursive) {
+					if (!recursion) {
 						self.dropdown.addClass('hide');
 					}
 				}
