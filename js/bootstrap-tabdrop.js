@@ -50,12 +50,6 @@
 		}
 	}());
 
-	function updateSelection(e) {
-		this.element.find('li').removeClass('active');
-		$(e.currentTarget).addClass('active');
-		this.layout();
-	}
-
 	var TabDrop = function (element, options) {
 		this.element = $(element);
 		this.options = options;
@@ -66,14 +60,13 @@
 		}
 
 		var boundLayout = $.proxy(this.layout, this);
-		var boundUpdateSelection = $.proxy(updateSelection, this);
 
 		WinResizer.register(boundLayout);
-		this.element.on('click', 'li:not(.tabdrop)', boundUpdateSelection);
+		this.element.on('click', 'li:not(.tabdrop)', boundLayout);
 
 		this.teardown = function () {
 			WinResizer.unregister(boundLayout);
-			this.element.off('click', 'li:not(.tabdrop)', boundUpdateSelection);
+			this.element.off('click', 'li:not(.tabdrop)', boundLayout);
 		};
 
 		this.layout();
