@@ -24,7 +24,7 @@
 		var registered = [];
 		var inited = false;
 		var timer;
-		var resize = function (ev) {
+		var resize = function () {
 			clearTimeout(timer);
 			timer = setTimeout(notify, 100);
 		};
