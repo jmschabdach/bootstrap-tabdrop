@@ -3,6 +3,7 @@
  * http://www.eyecon.ro/bootstrap-tabdrop
  * =========================================================
  * Copyright 2012 Stefan Petre
+ * Copyright 2013 Jenna Schabdach
  * Copyright 2014 Jose Ant. Aranda
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
