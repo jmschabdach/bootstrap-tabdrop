@@ -68,11 +68,15 @@
 		var boundLayout = $.proxy(this.layout, this);
 
 		WinResizer.register(boundLayout);
-		this.element.on('click', 'li:not(.tabdrop)', boundLayout);
+		this.element.on('shown.bs.tab', function (e) {
+   		boundLayout();
+ 		});
 
 		this.teardown = function () {
 			WinResizer.unregister(boundLayout);
-			this.element.off('click', 'li:not(.tabdrop)', boundLayout);
+			this.element.off('shown.bs.tab', function (e) {
+				boundLayout();
+			});
 		};
 
 		this.layout();
