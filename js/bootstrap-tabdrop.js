@@ -170,7 +170,7 @@
 	};
 
 	$.fn.tabdrop.defaults = {
-		text: '<i class="fa fa-align-justify"></i>',
+		text: '<i class="glyphicon glyphicon-menu-hamburger"></i>',
 		offsetTop: 0
 	};
 
