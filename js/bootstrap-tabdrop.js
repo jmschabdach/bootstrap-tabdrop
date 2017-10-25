@@ -38,7 +38,7 @@
 			register: function (fn) {
 				registered.push(fn);
 				if (inited === false) {
-					$(window).bind('resize', resize);
+					$(window).on('resize', resize);
 					inited = true;
 				}
 			},
