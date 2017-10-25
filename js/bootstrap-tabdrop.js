@@ -56,9 +56,9 @@
 		this.options = options;
 
 		if (options.align === "left")
-			this.dropdown = $('<li class="dropdown hide pull-left tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="display-tab"></span><b class="caret"></b></a><ul class="dropdown-menu"></ul></li>');
+			this.dropdown = $('<li class="dropdown hide pull-left tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="display-tab"></span><b class="caret"></b></a><ul class="dropdown-menu"></ul></li>');
 		else
-			this.dropdown = $('<li class="dropdown hide pull-right tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="display-tab"></span><b class="caret"></b></a><ul class="dropdown-menu"></ul></li>');
+			this.dropdown = $('<li class="dropdown hide pull-right tabdrop"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;"><span class="display-tab"></span><b class="caret"></b></a><ul class="dropdown-menu"></ul></li>');
 
 		this.dropdown.prependTo(this.element);
 		if (this.element.parent().is('.tabs-below')) {
