@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "homepage": "https://github.com/jschab/bootstrap-tabdrop",
   "description": "dropdown tab tool for twitter bootstrap.",
+  "license": "Apache-2.0",
   "main": "js/bootstrap-tabdrop.js",
   "repository": {
     "type": "git",
